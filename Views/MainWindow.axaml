@@ -1,0 +1,113 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MaquinaRam.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="550"
+        x:Class="MaquinaRam.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="MaquinaRam"
+        RequestedThemeVariant="Dark">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Título -->
+            <RowDefinition Height="Auto"/> <!-- Menú -->
+            <RowDefinition Height="*"/>    <!-- Input Tape y Output Tape -->
+        </Grid.RowDefinitions>
+
+        <!-- Título -->
+        <Border Grid.Row="0" Background="LightBlue" Margin="0 0 0 2">
+            <TextBlock Text="MAQUINA RAM - P02 DAA"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        FontSize="20"
+                        HorizontalAlignment="Center"
+                        Margin="5"/>
+        </Border>
+
+        <!-- Menú -->
+        <Border Grid.Row="1" Background="LightBlue">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Archivo" FontWeight="Bold" Foreground="Black">
+                    <MenuItem FontWeight="Normal" Header="Abrir" Click="LoadFile"/>
+                </MenuItem>
+                <MenuItem Header="Ejecutar" FontWeight="Bold" Foreground="Black">
+                    <MenuItem FontWeight="Normal" Header="Ejecutar" Click="Run"/>
+                </MenuItem>
+            </Menu>
+        </Border>
+
+        <!-- Contenido (Input Tape, Output Tape, Editor de texto) -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/> <!-- Input Tape y Output Tape -->
+                <ColumnDefinition Width="*"/>    <!-- Editor de texto -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Input Tape y Output Tape -->
+            <Border Grid.Column="0" Background="LightBlue" Margin="0 2 2 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/> <!-- Input Tape and Output Tape -->
+                        <RowDefinition Height="Auto"/> <!-- Registros -->
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Foreground="Black" FontWeight="Bold" Text="Input Tape"
+                                    HorizontalAlignment="Center" Margin="0 5 0 5"/>
+                        <TextBox Text="10 20 30"
+                                AcceptsReturn="False"
+                                TextWrapping="Wrap" 
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                Width="375" 
+                                Height="25"
+                                Name="inputTape"/>   
+                            
+                        <TextBlock Foreground="Black" FontWeight="Bold" Text="Output Tape"
+                                    HorizontalAlignment="Center"
+                                    Margin="5"/>
+                        <TextBox Text="Output Tape"
+                                AcceptsReturn="False"
+                                TextWrapping="Wrap" 
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                Width="375" 
+                                Height="25"
+                                Name="OutputTape"
+                                IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" VerticalAlignment="Stretch">
+                        <Border Margin="0 25 0 0" BorderBrush="Black" BorderThickness="0 2 0 2">
+                            <TextBlock Foreground="Black" FontWeight="Bold" Text="Registros"
+                                        HorizontalAlignment="Center" Margin="0 5 0 5"/>
+                        </Border>
+                        <Border VerticalAlignment="Stretch" Background="LightBlue">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <ListBox Name="lstRegistros" Background="LightGray"/>                            
+                            </ScrollViewer>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Editor de texto -->
+            <ScrollViewer Grid.Column="1" Background="LightBlue" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0 2 0 0">
+                <TextBox Text="Editor de texto"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap" 
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        Name="txtEditor"/> 
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
+</Window>
