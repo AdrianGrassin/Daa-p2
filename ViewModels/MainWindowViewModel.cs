@@ -1,8 +1,14 @@
-﻿namespace MaquinaRam.ViewModels;
+﻿using System.ComponentModel;
 
-public class MainWindowViewModel : ViewModelBase
+namespace MaquinaRam.ViewModels;
+
+public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
 {
-#pragma warning disable CA1822 // Mark members as static
+  public event PropertyChangedEventHandler? PropertyChanged;
 
-#pragma warning restore CA1822 // Mark members as static
+  protected virtual void OnPropertyChanged(string propertyName)
+  {
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+  }
+  
 }

@@ -134,3 +134,4 @@ G:\Clase\3\DAA\P2\MaquinaRam\obj\Debug\net8.0\MaquinaRam.pdb
 G:\Clase\3\DAA\P2\MaquinaRam\obj\Debug\net8.0\MaquinaRam.csproj.CopyComplete
 G:\Clase\3\DAA\P2\MaquinaRam\obj\Debug\net8.0\MaquinaRam.genruntimeconfig.cache
 G:\Clase\3\DAA\P2\MaquinaRam\obj\Debug\net8.0\ref\MaquinaRam.dll
+G:\Clase\3\DAA\P2\MaquinaRam\obj\Debug\net8.0\MaquinaRam.sourcelink.json

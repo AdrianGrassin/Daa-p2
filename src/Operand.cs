@@ -31,10 +31,11 @@ namespace MaquinaRam
           _type = OperandType.Indirect;
           op = op[1..];
           break;
-        case var _ when Regex.IsMatch(op, "[0-9]"):
+        case var _ when Regex.IsMatch(op, "^[0-9]+$"):
           _type = OperandType.Direct;
           break;
-        case var _ when Regex.IsMatch(op, "[A-Z]"):
+
+        case var _ when Regex.IsMatch(op, "([a-zA-Z]+[a-zA-Z0-9][-_.])*"):
           _type = OperandType.Label;
           _label = op;
           break;

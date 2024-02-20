@@ -41,6 +41,10 @@
                 <MenuItem Header="Ejecutar" FontWeight="Bold" Foreground="Black">
                     <MenuItem FontWeight="Normal" Header="Ejecutar" Click="Run"/>
                 </MenuItem>
+                <MenuItem Header="Debug" FontWeight="Bold" Foreground="Black">
+                    <MenuItem FontWeight="Normal" Header="Simple" Click="RunNumberOfInstruction"/>
+
+                </MenuItem>
             </Menu>
         </Border>
 
@@ -62,7 +66,7 @@
                     <StackPanel Grid.Row="0">
                         <TextBlock Foreground="Black" FontWeight="Bold" Text="Input Tape"
                                     HorizontalAlignment="Center" Margin="0 5 0 5"/>
-                        <TextBox Text="10 20 30"
+                        <TextBox Text="0"
                                 AcceptsReturn="False"
                                 TextWrapping="Wrap" 
                                 VerticalAlignment="Stretch"
@@ -91,7 +95,7 @@
                         </Border>
                         <Border VerticalAlignment="Stretch" Background="LightBlue">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <ListBox Name="lstRegistros" Background="LightGray"/>                            
+                                <ListBox Name="lstRegistros" Background="LightGray" Foreground="Black"/>                            
                             </ScrollViewer>
                         </Border>
                     </StackPanel>

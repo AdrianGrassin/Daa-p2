@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using MaquinaRam.ViewModels;
 namespace MaquinaRam.Views;
 
 public partial class MainWindow : Window
@@ -46,7 +44,11 @@ public partial class MainWindow : Window
 
     private void Run(object sender, RoutedEventArgs e)
     {
-        if (machine_ == null) return;
+        if (machine_ == null){
+            OutputTape_.Foreground = new SolidColorBrush(Colors.Red);
+            OutputTape_.Text = "No hay programa cargado";
+            return;
+        }
         try {
             OutputTape_.Foreground = new SolidColorBrush(Colors.White);
             machine_.Reset(inputTape_.Text, txtEditor.Text);
@@ -58,6 +60,22 @@ public partial class MainWindow : Window
             OutputTape_.Foreground = new SolidColorBrush(Colors.Red);
             OutputTape_.Text = ex.Message;
         }
+    }
+
+    public void RunNumberOfInstruction(object sender, RoutedEventArgs e)
+    {
+        if (machine_ == null) return;
+        try {
+            OutputTape_.Foreground = new SolidColorBrush(Colors.White);
+            machine_.Reset(inputTape_.Text, txtEditor.Text);
+            machine_.RunInstructions();
+            UpdateRegisters(machine_.GetRegisters());
+            OutputTape_.Text = machine_.GetOutput();
+        } catch (Exception ex) {
+            OutputTape_.Foreground = new SolidColorBrush(Colors.Red);
+            OutputTape_.Text = ex.Message;
+        }       
+        
     }
 
     private void UpdateRegisters(Dictionary<int, int> new_registers)

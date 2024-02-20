@@ -5,6 +5,7 @@ namespace MaquinaRam
 {
   public class RamController
   {
+    private int numberOfSteps_ = 0;
     private DataMemory dataMemory_;
     private ProgramMemory programMemory_;
     private InputTape inputTape_;
@@ -28,6 +29,17 @@ namespace MaquinaRam
         instruction.Execute(ref dataMemory_, ref programMemory_, ref inputTape_, ref outputTape_);
       }
     }
+
+    public void RunInstructions()
+    {
+      while (programMemory_.GetProgramCounter() < programMemory_.GetInstructions().Count && programMemory_.GetProgramCounter()  >= 0)
+      {
+        var instruction = programMemory_.GetInstructions()[programMemory_.GetProgramCounter()];
+        programMemory_.IncrementProgramCounter();
+        instruction.Execute(ref dataMemory_, ref programMemory_, ref inputTape_, ref outputTape_);
+        numberOfSteps_++;
+      }
+    }
      
     public string GetOutput()
     {
@@ -40,6 +52,7 @@ namespace MaquinaRam
       programMemory_ = new ProgramMemory(new_program);
       outputTape_.Reset();
       inputTape_.Reset(new_input);
+      numberOfSteps_ = 0;
     }
 
     public Dictionary<int,int> GetRegisters()
@@ -50,6 +63,11 @@ namespace MaquinaRam
     public int GetAcc()
     {
       return dataMemory_.GetAcc();
+    }
+
+    public int GetNumberOfSteps()
+    {
+      return numberOfSteps_;
     }
 
   }

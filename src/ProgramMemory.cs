@@ -19,12 +19,14 @@ namespace MaquinaRam
     {
       return;
     }
+
+    program = program.Replace("\n", "\r\n");
     var lines = program.Split(Environment.NewLine); 
+    
     // remove all # comments
     lines = lines.Select(line => line.Split('#')[0]).ToArray();
-    //remove all empty lines
-    lines = lines.Where(line => !string.IsNullOrEmpty(line)).ToArray();
-    
+    //remove all empty lines and whitespaces and tabs
+    lines = lines.Where(line => !string.IsNullOrWhiteSpace(line)).ToArray();    
 
     for (int i = 0; i < lines.Length; i++)
     {
@@ -44,9 +46,12 @@ namespace MaquinaRam
       if(parts[0].EndsWith(':'))
       {
         var label = parts[0][..^1];
+        if (parts.Length == 1)
+        {
+          throw new Exception($"Invalid sintax at line {i+1}, expected a label with an instruction0, got just a label");
+        }
         _labels.Add(label, i);
         // si es un label tiene una instuccion en la misma linea así que hay que parsear la instruccion
-        if (parts.Length == 1) continue;
 
         parts = parts[1..];        
       }
@@ -103,6 +108,9 @@ namespace MaquinaRam
           break;
         case "WRITE":
           _instructions.Add(new Write(op));
+          break;
+        case "EXP":
+          _instructions.Add(new Exp(op));
           break;
         default:
           throw new Exception($"Invalid instruction {instruction} at line {i+1}");
